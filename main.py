@@ -51,7 +51,7 @@ def find_actual_gain_loss(prev_price_pd: pd.DataFrame, row: []) -> tuple:
     prev_price = float(prev_price_pd["Last Price"].values.tolist()[0].replace(',', ''))
     curr_price = float(row[3].replace(',', ''))
     if curr_price > prev_price:
-        val = (((prev_price - prev_price) / prev_price) * 100)
+        val = (((curr_price - prev_price) / prev_price) * 100)
         color = "green"
     elif curr_price == prev_price:
         val = 0.0
