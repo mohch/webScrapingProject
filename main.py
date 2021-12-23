@@ -51,13 +51,13 @@ def find_actual_gain_loss(prev_price_pd: pd.DataFrame, row: []) -> tuple:
     prev_price = float(prev_price_pd["Last Price"].values.tolist()[0].replace(',', ''))
     curr_price = float(row[3].replace(',', ''))
     if curr_price > prev_price:
-        val = (((curr_price - prev_price) / prev_price) * 100)
+        val = ((curr_price - prev_price) / prev_price) * 100
         color = "green"
     elif curr_price == prev_price:
         val = 0.0
         color = "blue"
     else:
-        val = (((prev_price - curr_price) / prev_price) * 100)
+        val = ((prev_price - curr_price) / prev_price) * 100
         color = "red"
     return val, color
 
@@ -72,8 +72,9 @@ if __name__ == '__main__':
     if os.path.exists(FILE_PATH):
         prev_stock_data = pd.read_csv(FILE_PATH)
 
-    gainTable = get_table_from_web_HTML(STOCK_GAIN_WEB_URL, {"class": "bsr_table hist_tbl_hm"})
-    lossTable = get_table_from_web_HTML(STOCK_LOSS_WEB_URL, {"class": "bsr_table hist_tbl_hm"})
+    attr_dict = {"class": "bsr_table hist_tbl_hm"}
+    gainTable = get_table_from_web_HTML(STOCK_GAIN_WEB_URL, attr_dict)
+    lossTable = get_table_from_web_HTML(STOCK_LOSS_WEB_URL, attr_dict)
 
     exclude_headers_start_with = ("5 Day Performance", "% Loss")
     headers = get_raw_table_headers(gainTable, exclude_headers_start_with)
